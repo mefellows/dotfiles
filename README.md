@@ -1,5 +1,6 @@
 # holman does dotfiles
 
+Forked from: https://github.com/holman/dotfiles
 Your dotfiles are how you personalize your system. These are mine.
 
 I was a little tired of having long alias files and everything strewn about
@@ -51,7 +52,7 @@ There's a few special files in the hierarchy.
 Run this:
 
 ```sh
-git clone https://github.com/holman/dotfiles.git ~/.dotfiles
+git clone https://github.com/mefellows/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
 ```

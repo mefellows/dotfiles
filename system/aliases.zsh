@@ -8,3 +8,9 @@ then
   alias ll="gls -l --color"
   alias la='gls -A --color'
 fi
+
+alias ll='ls -larth'
+alias la='ls -A'
+alias l='ls -CF'
+alias top='top -o -rsize'
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
