@@ -1,30 +1,35 @@
 # Setup antigen
-source ~/.zsh/antigen.zsh
+#export _ANTIGEN_WARN_DUPLICATES=false
+source ~/.antigen.zsh
 antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle git
-antigen bundle heroku
-antigen bundle pip
+antigen bundle aws
+# antigen bundle pip
 antigen bundle golang
 antigen bundle docker
 antigen bundle iterm2
 antigen bundle npm
 antigen bundle node
-antigen bundle command-not-found
+# antigen bundle command-not-found
 antigen bundle joshuarubin/zsh-direnv
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Load the theme.
-antigen theme robbyrussell
+# This seems to result in the "...seems is already installed!" message
+#antigen theme robbyrussell
 
 # Tell Antigen that you're done.
 antigen apply
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# https://github.com/ajeetdsouza/zoxide
+eval "$(zoxide init zsh)"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/matthewfellows/.oh-my-zsh"
@@ -33,6 +38,7 @@ export ZSH="/Users/matthewfellows/.oh-my-zsh"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -88,6 +94,8 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  aws
+  dotenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -121,11 +129,29 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-ZSH_THEME="powerlevel9k/powerlevel9k"
+#ZSH_THEME="powerlevel9k/powerlevel9k"
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# https://github.com/ohmyzsh/ohmyzsh/issues/5327#issuecomment-386480914
+#
+# Defer initialization of nvm until nvm, node or a node-dependent command is
+# run. Ensure this block is only run once if .bashrc gets sourced multiple times
+# by checking whether __init_nvm is a function.
+if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(whence -w __init_nvm)" = function ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+  declare -a __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack' 'npx')
+  function __init_nvm() {
+    for i in "${__node_commands[@]}"; do unalias $i; done
+    . "$NVM_DIR"/nvm.sh
+    unset __node_commands
+    unset -f __init_nvm
+  }
+  for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
+fi
 
 
 ##### ALIASES
@@ -180,3 +206,29 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
+
+# Powerline 9k: https://github.com/Powerlevel9k/powerlevel9k/wiki/Install-Instructions#option-2-install-for-oh-my-zsh
+#ZSH_THEME="powerlevel9k/powerlevel9k"
+
+
+# Iterm 2 Shell Integration
+source ~/.iterm2_shell_integration.zsh
+# added by travis gem
+[ -f /Users/matthewfellows/.travis/travis.sh ] && source /Users/matthewfellows/.travis/travis.sh
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/matthewfellows/development/public/pact-js/examples/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/matthewfellows/development/public/pact-js/examples/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/matthewfellows/development/public/pact-js/examples/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/matthewfellows/development/public/pact-js/examples/serverless/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/matthewfellows/.nvm/versions/node/v10.8.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/matthewfellows/.nvm/versions/node/v10.8.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/matthewfellows/.sdkman"
+[[ -s "/Users/matthewfellows/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/matthewfellows/.sdkman/bin/sdkman-init.sh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

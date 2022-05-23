@@ -49,6 +49,11 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'nvie/vim-flake8'
+Plugin 'elmcast/elm-vim'
+Plugin 'prettier/vim-prettier'
+Plugin 'rust-lang/rust.vim'
+Plugin 'racer-rust/vim-racer'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -135,24 +140,22 @@ map <C-n> :NERDTreeToggle<CR>
 nmap <F8> :TagbarToggle<CR>
 let NERDTreeIgnore = ['bin', 'pkg']
 
+" Control P
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
-"Python 3
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
-"python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)|node_modules|vendor$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                          PEP 8 compliance                         
-" (from http://svn.python.org/projects/python/trunk/Misc/Vim/vimrc) 
+"                          PEP 8 compliance
+" (from http://svn.python.org/projects/python/trunk/Misc/Vim/vimrc)
 "
 " vimrc file for following the coding standards specified in PEP 7 & 8.
 "
@@ -185,7 +188,7 @@ fu Select_c_style()
     if search('^\t', 'n', 150)
         set shiftwidth=4
         set noexpandtab
-    el 
+    el
         set shiftwidth=4
         set expandtab
     en
@@ -202,7 +205,7 @@ au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " Wrap text after a certain number of characters
-" Python: 79 
+" Python: 79
 " C: 79
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h set textwidth=79
 
@@ -222,6 +225,11 @@ au BufRead,BufNewFile *.c,*.h set formatoptions-=c formatoptions-=o formatoption
 " C: yes
 au BufNewFile *.py,*.pyw,*.c,*.h set fileformat=unix
 
+" Elm
+let g:ycm_semantic_triggers = {
+     \ 'elm' : ['.'],
+     \}
+
 
 " ----------------------------------------------------------------------------
 " The following section contains suggested settings.  While in no way required
@@ -237,7 +245,41 @@ au BufNewFile *.py,*.pyw,*.c,*.h set fileformat=unix
 let python_highlight_all=1
 syntax on
 
+" Buffers
+"map <C-[> :bprevious<CR>
+"map <C-]> :bnext<CR>
+"map <C-w> :<CR>
+command Bd bp | sp | bn | bd
+map <C-c><C-w> :Bd<CR>
+
 " Automatically indent based on file type: ``filetype indent on``
 " Keep indentation level from previous line: ``set autoindent``
-
 " Folding based on indentation: ``set foldmethod=indent``
+set foldmethod=syntax
+set foldlevelstart=100
+
+" Line bubbling
+nnoremap ,<Up>   :<C-u>silent! move-2<CR>==
+nnoremap ,<Down> :<C-u>silent! move+<CR>==
+
+" Golang
+"let g:syntastic_go_checkers = ['go']
+let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'errcheck']
+
+" Build/Test on save.
+augroup auto_go
+	autocmd!
+	autocmd BufWritePost *.go :GoBuild
+	autocmd BufWritePost *_test.go :GoTest
+augroup end
+
+" Auto refresh files (instead of manual :edit)
+:set autoread
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
