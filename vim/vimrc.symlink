@@ -2,63 +2,63 @@ set nocompatible
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" Appearance
-Plugin 'https://github.com/altercation/vim-colors-solarized.git'
-
-" Tools
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-git'
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdtree'
-"Plugin 'ervandew/supertab'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'airblade/vim-gitgutter'
-"Plugin 'vim-scripts/copypath.vim'
-"Plugin 'vim-scripts/Align'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'scrooloose/nerdcommenter'
-
-" Languages/Syntax
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'skwp/vim-rspec'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-markdown'
-Plugin 'pangloss/vim-javascript'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'fatih/vim-go'
-Plugin 'tpope/vim-salve'
-Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-fireplace'
-Plugin 'guns/vim-clojure-static'
-Plugin 'guns/vim-sexp'
-Plugin 'tpope/vim-sexp-mappings-for-regular-people'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'jmcantrell/vim-virtualenv'
-Plugin 'nvie/vim-flake8'
-Plugin 'elmcast/elm-vim'
-Plugin 'prettier/vim-prettier'
-Plugin 'rust-lang/rust.vim'
-Plugin 'racer-rust/vim-racer'
-
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-"execute pathogen#infect()
-filetype plugin indent on    " required
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+"" alternatively, pass a path where Vundle should install plugins
+""call vundle#begin('~/some/path/here')
+"
+"" let Vundle manage Vundle, required
+"Plugin 'gmarik/Vundle.vim'
+"
+"" Appearance
+"Plugin 'https://github.com/altercation/vim-colors-solarized.git'
+"
+"" Tools
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-surround'
+"Plugin 'tpope/vim-endwise'
+"Plugin 'tpope/vim-git'
+"Plugin 'kien/ctrlp.vim'
+"Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/nerdtree'
+""Plugin 'ervandew/supertab'
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'airblade/vim-gitgutter'
+""Plugin 'vim-scripts/copypath.vim'
+""Plugin 'vim-scripts/Align'
+"Plugin 'davidhalter/jedi-vim'
+"Plugin 'scrooloose/nerdcommenter'
+"
+"" Languages/Syntax
+"Plugin 'vim-ruby/vim-ruby'
+"Plugin 'skwp/vim-rspec'
+"Plugin 'tpope/vim-rails'
+"Plugin 'tpope/vim-haml'
+"Plugin 'tpope/vim-markdown'
+"Plugin 'pangloss/vim-javascript'
+"Plugin 'leafgarland/typescript-vim'
+"Plugin 'fatih/vim-go'
+"Plugin 'tpope/vim-salve'
+"Plugin 'tpope/vim-projectionist'
+"Plugin 'tpope/vim-dispatch'
+"Plugin 'tpope/vim-fireplace'
+"Plugin 'guns/vim-clojure-static'
+"Plugin 'guns/vim-sexp'
+"Plugin 'tpope/vim-sexp-mappings-for-regular-people'
+"Plugin 'kien/rainbow_parentheses.vim'
+"Plugin 'majutsushi/tagbar'
+"Plugin 'jmcantrell/vim-virtualenv'
+"Plugin 'nvie/vim-flake8'
+"Plugin 'elmcast/elm-vim'
+"Plugin 'prettier/vim-prettier'
+"Plugin 'rust-lang/rust.vim'
+"Plugin 'racer-rust/vim-racer'
+"
+"
+"" All of your Plugins must be added before the following line
+"call vundle#end()            " required
+""execute pathogen#infect()
+"filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -73,8 +73,8 @@ filetype plugin indent on    " required
 
 syntax enable
 set background=dark
-colorscheme solarized
-let g:solarized_termtrans = 1
+"colorscheme solarized
+"let g:solarized_termtrans = 1
 set ruler
 
 set nowrap        " don't wrap lines

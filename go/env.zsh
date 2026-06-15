@@ -1,0 +1,1 @@
+alias gcd='cd ~/go/src/github.com/mefellows'

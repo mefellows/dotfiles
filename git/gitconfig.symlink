@@ -9,6 +9,7 @@
         wtf     = !$ZSH/bin/git-wtf
         rank-contributors = !$ZSH/bin/git-rank-contributors
         count   = !git shortlog -sn
+	set-upstream = !git branch --set-upstream-to=origin/$(git symbolic-ref --short HEAD)
 [color]
         diff = auto
         status = auto
@@ -17,6 +18,7 @@
 [core]
         excludesfile = ~/.gitignore
         editor = vim
+	ignorecase = false
 [apply]
         whitespace = nowarn
 [mergetool]
@@ -30,4 +32,16 @@
         # for more information on different options of the below setting.
         #
         # Setting to git 2.0 default to suppress warning message
-        default = simple
+	default = current
+[pull]
+	ff = only
+	rebase = false
+[user]
+	email = 53900+mefellows@users.noreply.github.com
+	signingkey = 29C2FC38
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true
+[credential]
+	helper = osxkeychain

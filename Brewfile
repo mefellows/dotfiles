@@ -1,6 +1,7 @@
 cask_args appdir: '/Applications'
 
 tap 'homebrew/bundle'
+tap 'aws/tap'
 
 brew 'ack'
 brew 'coreutils'
@@ -15,10 +16,12 @@ brew 'readline'
 brew 'ruby-build'
 brew 'awscli'
 brew 'direnv'
-brew 'postgres'
+brew 'wget'
 brew 'fzf'
 brew 'zoxide'
+brew 'telnet'
+brew 'ngrok'
 brew 'fzf'
 
-cask 'transmission'
 # cask 'tunnelbear'
+brew 'aws-sam-cli'
